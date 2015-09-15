@@ -13,7 +13,6 @@ import org.apache.hadoop.util.ToolRunner;
 public class WordCount extends Configured implements Tool {
 
 	static List<Data> list = new ArrayList<>();
-	static Data prev;
 	static boolean isDec,isChicago,isHackathon,isJava;
 
 	public static void main(String[] args) throws Exception {
@@ -23,18 +22,12 @@ public class WordCount extends Configured implements Tool {
 
 	public int run(String[] args) throws Exception {
 		Job job = Job.getInstance(getConf(), " wordcount ");
-		// Set the jar to use, based on the class in use.
-
+	
 		job.setJarByClass(this.getClass());
-		// Set the input and output paths for your application. You store your
-		// input files in HDFS, and then pass the input and output paths as
-		// command-line arguments at run time.
-
+	
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-		// Set the map class and reduce class for the job. In this case, use the
-		// Map and Reduce inner classes defined in this class.
-
+	
 		job.setMapperClass(Map.class);
 		job.setReducerClass(Reduce.class);
 
@@ -67,7 +60,7 @@ public class WordCount extends Configured implements Tool {
 				
 				switch(temp)
 				{
-					case "world":
+					case "dec":
 						isDec = true;
 						context.write(word, one);
 						break;
@@ -87,7 +80,7 @@ public class WordCount extends Configured implements Tool {
 				
 				
 				if(!isDec)
-					context.write(new Text("world"), new IntWritable(0));
+					context.write(new Text("dec"), new IntWritable(0));
 				if(!isJava)
 					context.write(new Text("java"), new IntWritable(0));
 				if(!isChicago)
