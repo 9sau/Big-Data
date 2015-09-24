@@ -18,7 +18,7 @@ public class PageRankDriver extends Configured implements Tool {
 			System.exit(-1);
 		}
 		Job job = Job.getInstance(getConf(), " wordcount ");
-		job.setJarByClass(PageRankDriverIterative.class);
+		job.setJarByClass(PageRankDriver.class);
 		job.setJobName("Page Rank");
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
